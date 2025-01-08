@@ -2,7 +2,7 @@ import toml from "@iarna/toml";
 import "dotenv/config";
 import fs from "fs";
 import path from "path";
-import setupCheck from "../app/utils/setupCheck.js";
+import setupCheck from "../utils/setupCheck.js";
 import webhookWriter from "./webhookWriter.js";
 
 /** @typedef {import("@/_developer/types/toml.js").AppConfig} Config */

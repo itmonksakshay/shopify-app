@@ -1,0 +1,59 @@
+<!-- In theme.liquid or custom section -->
+<div id="three-container" style="width: 100%; height: 500px;"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/examples/js/loaders/GLTFLoader.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/examples/js/controls/OrbitControls.js"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.getElementById('three-container').appendChild(renderer.domElement);
+
+    const ambientLight = new THREE.AmbientLight(0x404040, 1); 
+    scene.add(ambientLight);
+
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+    directionalLight.position.set(10, 10, 10);
+    scene.add(directionalLight);
+
+    const loader = new THREE.GLTFLoader();
+    let mixer;
+    loader.load('{{ "animate.glb" | asset_url }}', function (gltf) {
+      const model = gltf.scene;
+      scene.add(model);
+      mixer = new THREE.AnimationMixer(model);
+      gltf.animations.forEach((clip) => {
+        mixer.clipAction(clip).play();
+      });
+
+      model.scale.set(4.3, 4.3, 4.3);
+      model.position.set(0, -4, 0);
+
+      function animate() {
+        requestAnimationFrame(animate);
+        if (mixer) mixer.update(0.016); 
+        renderer.render(scene, camera);
+      }
+      animate();
+    }, undefined, function (error) {
+      console.error(error);
+    });
+
+    camera.position.set(0, 0, 10);
+    const controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.autoRotate = true;
+    controls.enableZoom = false;
+
+    window.addEventListener('resize', function () {
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      renderer.setSize(width, height);
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+    });
+  });
+</script>

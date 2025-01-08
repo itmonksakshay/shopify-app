@@ -1,0 +1,47 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model stores {
+  shop     String   @id
+  isActive Boolean? @default(false)
+
+  @@index([shop])
+}
+
+model session {
+  id      String  @id
+  content String?
+  shop    String?
+
+  @@index([id])
+  @@index([shop])
+}
+
+model countdownWidget {
+  id      String @id
+  content String
+  shop    String
+
+  @@index([shop])
+}
+
+model datePickerWidget {
+  id      String @id
+  content String
+  shop    String
+
+  @@index([shop])
+}
+
+model dayDelivery {
+  content String
+  shop    String @unique
+
+  @@index([shop])
+}

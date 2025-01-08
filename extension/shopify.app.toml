@@ -1,0 +1,41 @@
+# Avoid writing to toml directly. Use your .env file instead
+
+name = "ultimate-subscriptions"
+handle = "ultimate-subscriptions"
+client_id = "50eeda1789efc2682bb43938085cd0d3"
+application_url = "https://aa84-2409-40d7-54-a2dd-4c56-c15f-5de3-a07a.ngrok-free.app"
+embedded = true
+extension_directories = [ "./extensions/*" ]
+
+[auth]
+redirect_urls = [
+  "https://aa84-2409-40d7-54-a2dd-4c56-c15f-5de3-a07a.ngrok-free.app/api/"
+]
+
+[access_scopes]
+scopes = "read_orders,write_orders,read_products,write_products"
+optional_scopes = [ "read_themes" ]
+use_legacy_install_flow = false
+
+[webhooks]
+api_version = "2024-10"
+
+  [[webhooks.subscriptions]]
+  topics = [ "app/uninstalled" ]
+  uri = "https://aa84-2409-40d7-54-a2dd-4c56-c15f-5de3-a07a.ngrok-free.app/api/webhooks/app_uninstalled"
+
+  [webhooks.privacy_compliance]
+  customer_data_request_url = "https://aa84-2409-40d7-54-a2dd-4c56-c15f-5de3-a07a.ngrok-free.app/api/gdpr/customers_data_request"
+  customer_deletion_url = "https://aa84-2409-40d7-54-a2dd-4c56-c15f-5de3-a07a.ngrok-free.app/api/gdpr/customers_redact"
+  shop_deletion_url = "https://aa84-2409-40d7-54-a2dd-4c56-c15f-5de3-a07a.ngrok-free.app/api/gdpr/shop_redact"
+
+[app_proxy]
+url = "https://aa84-2409-40d7-54-a2dd-4c56-c15f-5de3-a07a.ngrok-free.app/api/proxy_route"
+prefix = "apps"
+subpath = "ultimate-subscriptions"
+
+[pos]
+embedded = false
+
+[build]
+include_config_on_deploy = true

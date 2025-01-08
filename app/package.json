@@ -1,0 +1,67 @@
+{
+  "name": "shopify-nextjs-prisma-app",
+  "version": "2024.12.05",
+  "type": "module",
+  "author": {
+    "name": "Harshdeep Singh Hura",
+    "url": "https://harshdeephura.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kinngh/shopify-nextjs-prisma-app.git"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "pretty": "prettier --write ./",
+    "update": "ncu -u",
+    "-----> Tunnel <-----": "",
+    "ngrok:auth": "ngrok authtoken 2pQPs34bcZjcmF34wOQzw43Vei5_22mbasYEiC559Pehf6ZzZ",
+    "ngrok": "ngrok http 3000",
+    "cloudflare": "cloudflared tunnel --url localhost:3000",
+    "-----> Shopify <-----": "",
+    "g:install": "npm i -g @shopify/cli@latest",
+    "shopify": "shopify",
+    "update:config": "node _developer/tomlWriter.js; cd ..;shopify app deploy;",
+    "update:url": "node _developer/updateDashboard.js",
+    "-----> Database <-----": "",
+    "pg:create": "mkdir database; pg_ctl -D database init",
+    "pg:start": "pg_ctl -D database start",
+    "pg:stop": "pg_ctl -D database stop",
+    "-----> Prisma <-----": "",
+    "prisma": "npx prisma",
+    "prisma:push": "npx prisma db push",
+    "prisma:pull": "npx prisma db pull",
+    "-----> Reserved Scripts <-----": "",
+    "prepare": "npx prisma generate"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.0.1",
+    "@shopify/app-bridge-react": "^4.1.6",
+    "@shopify/polaris": "^13.9.1",
+    "@shopify/polaris-icons": "^9.3.0",
+    "@shopify/shopify-api": "^11.6.0",
+    "cryptr": "^6.3.0",
+    "dayjs": "^1.11.13",
+    "dayjs-plugin-utc": "^0.1.2",
+    "dayjs-timezone-iana-plugin": "^0.1.0",
+    "deep-equal": "^2.2.3",
+    "i": "^0.3.7",
+    "next": "15.0.3",
+    "next-api-middleware": "^3.0.0",
+    "npm": "^11.0.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "devDependencies": {
+    "@iarna/toml": "^2.2.5",
+    "@shopify/cli-kit": "^3.70.0",
+    "@types/deep-equal": "^1.0.4",
+    "dotenv": "^16.4.6",
+    "ngrok": "^5.0.0-beta.2",
+    "npm-check-updates": "^17.1.11",
+    "prettier": "^3.4.1",
+    "prisma": "^6.0.1"
+  }
+}
