@@ -24,24 +24,19 @@ model session {
 }
 
 model countdownWidget {
-  id      String @id
   content String
-  shop    String
-
+  shop    String @unique
   @@index([shop])
 }
 
 model datePickerWidget {
-  id      String @id
   content String
-  shop    String
-
+  shop    String @unique
   @@index([shop])
 }
 
 model dayDelivery {
   content String
   shop    String @unique
-
   @@index([shop])
 }

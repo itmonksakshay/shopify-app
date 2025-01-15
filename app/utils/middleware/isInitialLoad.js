@@ -52,10 +52,63 @@ const isInitialLoad = async (context) => {
           storeTimezone,
         });
 
+        const countdownWidget = JSON.stringify({
+          containerLayout: {
+            backgroundColor: "#00ff00",
+            width: "100%",
+            paddingTop: "10px",
+            paddingBotom: "10px",
+            borderWidth: "1px",
+            borderRadius: "2px",
+            borderStyle: "solid",
+            borderColor: "#000000",
+            overflow: "hidden",
+          },
+          titleLayout: {
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            borderBottomWidth: "1px",
+            borderBottomColor: "#000000",
+            borderBottomStyle: "solid",
+            backgroundColor: "#00ff00",
+            color: "#000000",
+            paddingTop: "5px",
+            paddingBottom: "5px",
+            paddingRight: "20px",
+            paddingLeft: "20px",
+            fontSize: "12px",
+            fontWeight: "400",
+          },
+          dateSubtitleLayout: {
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            borderBottomWidth: "1px",
+            borderBottomColor: "#000000",
+            borderBottomStyle: "solid",
+            backgroundColor: "#00ff00",
+            color: "#000000",
+            paddingTop: "5px",
+            paddingBottom: "5px",
+            paddingRight: "20px",
+            paddingLeft: "20px",
+            fontSize: "12px",
+            fontWeight: "400",
+          },
+          globalSettings: {
+            title: "Same Day Delivery",
+            isTitleActive: true,
+            isSubtitleActive: true,
+            subtitle: "For Fast Delivery Today",
+          },
+        });
+
         // Run the fresh install process
         await freshInstall({
           shop: onlineSession.shop,
           settingsContent,
+          countdownWidget,
         });
       }
     } else {

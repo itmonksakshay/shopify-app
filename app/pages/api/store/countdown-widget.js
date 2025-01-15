@@ -8,7 +8,7 @@ import prisma from "@/utils/prisma";
 const handler = async (req, res) => {
   if (req.method === "GET") {
     try {
-      const response = await prisma.dayDelivery.findFirst({
+      const response = await prisma.countdownWidget.findFirst({
         where: { shop: req.user_shop },
       });
       return res.status(200).send(response);
@@ -17,7 +17,7 @@ const handler = async (req, res) => {
     }
   } else if (req.method === "POST") {
     try {
-      const response = await prisma.dayDelivery.upsert({
+      const response = await prisma.countdownWidget.upsert({
         where: {
           shop: req.user_shop,
         },

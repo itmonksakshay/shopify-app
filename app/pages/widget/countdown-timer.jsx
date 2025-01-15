@@ -23,7 +23,8 @@ const CountdownTimer = () => {
   const [containerLayout, setContainerLayout] = useState({
     backgroundColor: "#00ff00",
     width: "100%",
-    height: "250px",
+    paddingTop: "10px",
+    paddingBotom: "10px",
     borderWidth: "1px",
     borderRadius: "2px",
     borderStyle: "solid",
@@ -146,36 +147,37 @@ const CountdownTimer = () => {
 
         {/* Sticky Section for Countdown Timer */}
         <Layout.Section>
-          <div
-            style={{
-              position: "relative",
-              display: "flex",
-              flexDirection: "column",
-              gap: "var(--p-space-400)",
-            }}
-          >
+          <div>
             <div
               style={{
-                padding: "var(--p-space-600)", // Padding from Polaris space system
                 display: "flex",
-                justifyContent: "center", // Center content horizontally
-                borderRadius: "var(--p-border-radius-400)", // Border radius from Polaris
-                background:
-                  "repeating-conic-gradient(var(--p-color-bg-surface) 0 25%, var(--p-color-bg) 0 50%) 50% / var(--p-space-400) var(--p-space-400)",
-                position: "sticky", // Makes the Card sticky
-                top: "20px", // Distance from the top to make the section sticky
-                zIndex: 10, // Ensures the card is above other content if necessary
-                width: "100%", // Ensures the container takes full width
-                maxWidth: "1200px", // Optional: Set a max width for design consistency
-                margin: "0 auto", // Centers the sticky section horizontally
+                flexDirection: "column",
+                gap: "var(--p-space-400)",
               }}
             >
-              <CountdownTimerComponent
-                containerStyle={containerLayout}
-                titleStyle={titleLayout}
-                dateSubtitleLayout={dateSubtitleLayout}
-                globalSettings={globalSettings}
-              />
+              <div
+                style={{
+                  padding: "var(--p-space-600)", // Padding from Polaris space system
+                  display: "flex",
+                  justifyContent: "center", // Center content horizontally
+                  borderRadius: "var(--p-border-radius-400)", // Border radius from Polaris
+                  background:
+                    "repeating-conic-gradient(var(--p-color-bg-surface) 0 25%, var(--p-color-bg) 0 50%) 50% / var(--p-space-400) var(--p-space-400)",
+                  position: "sticky", // Makes the Card sticky
+                  top: "20px", // Distance from the top to make the section sticky
+                  zIndex: 10, // Ensures the card is above other content if necessary
+                  width: "100%", // Ensures the container takes full width
+                  maxWidth: "1200px", // Optional: Set a max width for design consistency
+                  margin: "0 auto", // Centers the sticky section horizontally
+                }}
+              >
+                <CountdownTimerComponent
+                  containerStyle={containerLayout}
+                  titleStyle={titleLayout}
+                  dateSubtitleLayout={dateSubtitleLayout}
+                  globalSettings={globalSettings}
+                />
+              </div>
             </div>
           </div>
         </Layout.Section>

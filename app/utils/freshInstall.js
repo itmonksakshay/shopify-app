@@ -11,8 +11,9 @@ import prisma from "./prisma";
  * @param {Object} params - The function parameters container.
  * @param {string} params.shop - The shop URL in the format '*.myshopify.com'.
  * @param {string} params.settingsContent
+ * @param {string} params.countdownWidget
  */
-const freshInstall = async ({ shop, settingsContent }) => {
+const freshInstall = async ({ shop, settingsContent, countdownWidget }) => {
   try {
     // create a shop entry in stores
 
@@ -32,16 +33,32 @@ const freshInstall = async ({ shop, settingsContent }) => {
 
     await prisma.dayDelivery.upsert({
       where: {
-        shop: onlineSession.shop,
+        shop: shop,
       },
       update: {
         content: settingsContent,
       },
       create: {
-        shop: onlineSession.shop,
+        shop: shop,
         content: settingsContent,
       },
     });
+
+    await prisma.countdownWidget
+      .upsert({
+        where: {
+          shop: shop,
+        },
+        update: {
+          content: countdownWidget,
+        },
+        create: {
+          shop: shop,
+          content: countdownWidget,
+        },
+      })
+      .then((response) => console.log(response))
+      .catch((e) => console.log(e.message, "error"));
 
     //Other functions start here
   } catch (e) {

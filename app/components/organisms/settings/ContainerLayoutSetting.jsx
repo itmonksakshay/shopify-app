@@ -15,10 +15,11 @@ const ContainerLayoutSetting = ({ layout, setlayout }) => {
     setContainerLayout((value) => ({ ...value, backgroundColor: newColor }));
   };
 
-  const handleHeightChange = (value) => {
+  const handleGapChange = (value) => {
     setContainerLayout((values) => ({
       ...values,
-      height: value.toString().concat("px"),
+      paddingTop: value.toString().concat("px"),
+      paddingBottom: value.toString().concat("px"),
     }));
   };
 
@@ -56,12 +57,12 @@ const ContainerLayoutSetting = ({ layout, setlayout }) => {
         />
         <RangeSlider
           output
-          label="Height"
-          min={150}
-          max={500}
+          label="Gap"
+          min={0}
+          max={100}
           step={10}
-          value={Number(containerLayout.height.replace("px", ""))}
-          onChange={handleHeightChange}
+          value={Number(containerLayout.paddingTop.replace("px", ""))}
+          onChange={handleGapChange}
         />
         <RangeSlider
           output

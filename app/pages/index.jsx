@@ -24,13 +24,8 @@ export async function getServerSideProps(context) {
 }
 
 const HomePage = () => {
-  const { data, loading, error } = useFetchStoreData(); // Use the hook to fetch data
-  const [sameDayDeliverySettings, setSameDayDeliverySettings] = useState({
-    storeTimezone: "",
-    defaultCutoffTime: "",
-    storeHolidays: [],
-    weeklyOffDays: [],
-  }); // Fallback to initial values to avoid null access
+  const { data, loading, error, refetchData } = useFetchStoreData(); // Use the hook to fetch data
+  const [sameDayDeliverySettings, setSameDayDeliverySettings] = useState(null); // Fallback to initial values to avoid null access
   const [isDirty, setIsDirty] = useState(false); // Track changes
   const shopify = useAppBridge();
 
@@ -86,10 +81,23 @@ const HomePage = () => {
 
   const handleSave = async () => {
     try {
-      console.log("Saving settings:", sameDayDeliverySettings);
-      // Add your save logic here (e.g., API call to save settings)
-    } catch (e) {
-      console.error("Error saving settings:", e);
+      // Perform the POST request to save the settings
+      const response = await fetch("/api/store", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(sameDayDeliverySettings), // Send the state as the body
+      });
+
+      if (!response.ok) {
+        alert("Error saving settings");
+      } else {
+        await refetchData();
+        alert("Settings saved successfully!");
+      }
+    } catch (error) {
+      alert("Error saving settings");
     }
   };
 
@@ -101,14 +109,8 @@ const HomePage = () => {
   if (loading) {
     return (
       <Page title="App Setup">
-        <Layout>
-          <Layout.Section>
-            <Card sectioned>
-              <Text variant="bodyMd">Loading data...</Text>
-              <Spinner size="large" />
-            </Card>
-          </Layout.Section>
-        </Layout>
+        <Text variant="bodyMd">Loading data...</Text>
+        <Spinner size="large" />
       </Page>
     );
   }
@@ -129,16 +131,23 @@ const HomePage = () => {
     );
   }
 
+  // Only render this section if `sameDayDeliverySettings` is not null
+  if (!sameDayDeliverySettings) {
+    return (
+      <Page title="App Setup">
+        <Text variant="bodyMd">No settings available yet.</Text>
+      </Page>
+    );
+  }
+
   return (
     <>
       {sameDayDeliverySettings && (
         <SaveBar id="my-save-bar">
-          <button onClick={handleSave} disabled={!isDirty}>
+          <button variant="primary" onClick={handleSave}>
             Save
           </button>
-          <button onClick={handleDiscard} disabled={!isDirty}>
-            Discard
-          </button>
+          <button onClick={handleDiscard}>Discard</button>
         </SaveBar>
       )}
 

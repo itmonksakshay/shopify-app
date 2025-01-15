@@ -37,7 +37,6 @@ const WidgetIndex = () => {
                       justifyContent: "center",
                       flexDirection: "column",
                       alignItems: "center",
-                      height: "300px",
                     }}
                   />
                 </BlockStack>
