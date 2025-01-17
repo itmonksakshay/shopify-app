@@ -24,7 +24,7 @@ export async function getServerSideProps(context) {
 }
 
 const HomePage = () => {
-  const { data, loading, error, refetchData } = useFetchStoreData(); // Use the hook to fetch data
+  const { data, loading, error, refetchData } = useFetchStoreData("/api/store"); // Use the hook to fetch data
   const [sameDayDeliverySettings, setSameDayDeliverySettings] = useState(null); // Fallback to initial values to avoid null access
   const [isDirty, setIsDirty] = useState(false); // Track changes
   const shopify = useAppBridge();

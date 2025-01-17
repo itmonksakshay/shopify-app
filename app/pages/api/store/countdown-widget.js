@@ -11,6 +11,7 @@ const handler = async (req, res) => {
       const response = await prisma.countdownWidget.findFirst({
         where: { shop: req.user_shop },
       });
+
       return res.status(200).send(response);
     } catch (e) {
       return res.status(400).send({ text: "Bad request" });

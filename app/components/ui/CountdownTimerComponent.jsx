@@ -1,17 +1,20 @@
 "use client";
+import dayjs from "dayjs";
 import React, { useState, useEffect } from "react";
 
 const CountdownTimerComponent = ({
-  containerStyle = {},
-  titleStyle = {},
+  containerLayout = {},
+  titleLayout = {},
   dateSubtitleLayout = {},
   dateStyle = {},
+  timerTitleStyle = {},
   timerTextStyle = {},
-  timeLeftStyle = {},
   globalSettings = {},
+  subtitleStyle = {},
+  timerStyle = {},
 }) => {
   // Set the target date for the countdown (e.g., December 13, 2024)
-  let targetDate = "";
+  let targetDate = dayjs().format(globalSettings?.dateFormat || "DD/MM/YYYY");
 
   const [timeLeft, setTimeLeft] = useState({});
 
@@ -37,28 +40,40 @@ const CountdownTimerComponent = ({
   };
 
   // Update the countdown every second
-  useEffect(() => {
-    targetDate = new Date().toLocaleDateString();
-    const timer = setInterval(calculateTimeLeft, 1000);
-    return () => clearInterval(timer); // Cleanup interval on unmount
-  }, []);
+  // useEffect(() => {
+  //   targetDate = new Date().toLocaleDateString();
+  //   const timer = setInterval(calculateTimeLeft, 1000);
+  //   return () => clearInterval(timer); // Cleanup interval on unmount
+  // }, []);
 
   return (
-    <div style={containerStyle}>
+    <div style={containerLayout}>
       {globalSettings.isTitleActive && (
-        <div style={titleStyle}>{globalSettings.title}</div>
+        <div style={titleLayout}>{globalSettings.title}</div>
       )}
-      <div style={dateSubtitleLayout}>
-        {globalSettings.isSubtitleActive && (
-          <div>{globalSettings.subtitle}</div>
+      {globalSettings.isDateSubtitleActive && (
+        <div style={dateSubtitleLayout}>
+          {globalSettings.isSubtitleActive && (
+            <div style={subtitleStyle}>{globalSettings.subtitle}</div>
+          )}
+          {globalSettings.isCurrentDateActive && (
+            <div style={dateStyle}>{targetDate}</div>
+          )}
+        </div>
+      )}
+      <div style={timerStyle}>
+        {globalSettings.isTimerTitleActive && (
+          <h6 style={timerTitleStyle}>{globalSettings.timerTitle}</h6>
         )}
-        <div style={dateStyle}>{targetDate}</div>
-      </div>
-      <div>
-        <h6>Time Left to Order</h6>
-        <h5 style={timerTextStyle}>{timeLeft.hours || "0"} hours</h5>
-        <h5 style={timerTextStyle}>{timeLeft.minutes || "0"} minutes</h5>
-        <h5 style={timerTextStyle}>{timeLeft.seconds || "0"} seconds</h5>
+        <h5 style={timerTextStyle}>
+          {timeLeft.hours || "0"} {globalSettings.hoursTitle}
+        </h5>
+        <h5 style={timerTextStyle}>
+          {timeLeft.minutes || "0"} {globalSettings.minutesTitle}
+        </h5>
+        <h5 style={timerTextStyle}>
+          {timeLeft.seconds || "0"} {globalSettings.secondsTitle}
+        </h5>
       </div>
     </div>
   );

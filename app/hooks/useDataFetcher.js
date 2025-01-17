@@ -2,14 +2,14 @@
 
 import { useState, useEffect } from "react";
 
-const useFetchStoreData = () => {
+const useFetchStoreData = (url) => {
   const [data, setData] = useState(null); // Store fetched data
   const [loading, setLoading] = useState(true); // Track loading state
   const [error, setError] = useState(null); // Track error state
 
   const fetchData = async () => {
     try {
-      const response = await fetch("/api/store"); // Assuming the API endpoint is available
+      const response = await fetch(url); // Assuming the API endpoint is available
       if (!response.ok) {
         throw new Error("Failed to fetch store data");
       }

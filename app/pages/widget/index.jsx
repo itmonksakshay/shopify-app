@@ -12,35 +12,34 @@ import {
 import { useRouter } from "next/router";
 
 import CountdownTimerComponent from "@/components/ui/CountdownTimerComponent";
+import useFetchStoreData from "@/hooks/useDataFetcher";
 
 const WidgetIndex = () => {
   const router = useRouter();
-
+  const { data, loading, error, refetchData } = useFetchStoreData(
+    "/api/store/countdown-widget"
+  );
+  console.log(data, "data");
   return (
     <>
       <Page title="Widget">
         <Layout sectioned>
           <BlockStack gap={300} align="start">
             <InlineGrid columns={2}>
-              <Box
-                shadow="300"
-                background="bg-surface-secondary"
-                borderStartStartRadius={200}
-                borderEndStartRadius={200}
-                padding={600}
-              >
-                <BlockStack gap={300} align="start">
-                  <Box>Countdown Timer</Box>
-                  <CountdownTimerComponent
-                    containerStyle={{
-                      display: "flex",
-                      justifyContent: "center",
-                      flexDirection: "column",
-                      alignItems: "center",
-                    }}
-                  />
-                </BlockStack>
-              </Box>
+              {data && (
+                <Box
+                  shadow="300"
+                  background="bg-surface-secondary"
+                  borderStartStartRadius={200}
+                  borderEndStartRadius={200}
+                  padding={600}
+                >
+                  <BlockStack gap={300} align="start">
+                    <Box>Countdown Timer</Box>
+                    <CountdownTimerComponent {...data} />
+                  </BlockStack>
+                </Box>
+              )}
               <Box
                 shadow="300"
                 background="bg-surface"

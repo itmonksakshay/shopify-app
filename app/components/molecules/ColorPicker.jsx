@@ -67,9 +67,7 @@ const CustomColorPicker = ({
 }) => {
   const [color, setColor] = useState(defaultColor); // Start with a HEX color
   const [active, setActive] = useState(false);
-  const [inputColor, setInputColor] = useState(defaultColor);
-
-  console.log(defaultColor);
+  const [inputColor, setInputColor] = useState(defaultColor.replace("#", ""));
 
   useEffect(() => {
     setDefaultColor(color);

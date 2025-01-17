@@ -57,7 +57,7 @@ const ContainerLayoutSetting = ({ layout, setlayout }) => {
         />
         <RangeSlider
           output
-          label="Gap"
+          label="Spacing"
           min={0}
           max={100}
           step={10}

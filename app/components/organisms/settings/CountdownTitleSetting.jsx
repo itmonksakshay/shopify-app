@@ -1,6 +1,7 @@
 "use client";
 import CollapsibleContainer from "@/components/molecules/CollapsibleContainer";
 import CustomColorPicker from "@/components/molecules/ColorPicker";
+import { FontStyleSelector } from "@/components/molecules/FontStyleDropdown";
 import FontWeightDropdown from "@/components/molecules/FontWeightDropdown";
 import ToggleSwitch from "@/components/molecules/ToggleSwitch";
 import { Box, RangeSlider, Select, TextField } from "@shopify/polaris";
@@ -69,12 +70,16 @@ const CountdownTitleSetting = ({
     }));
   };
 
-  const handFontWeightChange = (value) => {
+  const handleFontWeightChange = (value) => {
     setContainerLayout((values) => ({ ...values, fontWeight: value }));
   };
 
   const handleFontFamilyChange = (value) => {
     setContainerLayout((values) => ({ ...values, fontFamily: value }));
+  };
+
+  const handleFontStyleChange = (value) => {
+    setContainerLayout((values) => ({ ...values, fontStyle: value }));
   };
 
   return (
@@ -161,7 +166,11 @@ const CountdownTitleSetting = ({
             <FontWeightDropdown
               value={containerLayout.fontWeight}
               label={"Font Weight"}
-              onChange={handFontWeightChange}
+              onChange={handleFontWeightChange}
+            />
+            <FontStyleSelector
+              value={containerLayout.fontStyle}
+              handleChange={handleFontStyleChange}
             />
           </>
         )}

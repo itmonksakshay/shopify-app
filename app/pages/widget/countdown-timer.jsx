@@ -1,30 +1,19 @@
-import {
-  Button,
-  Card,
-  InlineStack,
-  Layout,
-  Page,
-  Text,
-  BlockStack,
-  InlineGrid,
-  Collapsible,
-  Icon,
-  Box,
-} from "@shopify/polaris";
+import { Layout, Page, Box } from "@shopify/polaris";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import ContainerLayoutSetting from "@/components/organisms/settings/ContainerLayoutSetting";
 import CountdownTimerComponent from "@/components/ui/CountdownTimerComponent";
 import CountdownTitleSetting from "@/components/organisms/settings/CountdownTitleSetting";
 import DateTitleSetting from "@/components/organisms/settings/DateTitleSetting";
+import TimerSetting from "@/components/organisms/settings/TimerSetting";
 const CountdownTimer = () => {
   const router = useRouter();
 
   const [containerLayout, setContainerLayout] = useState({
-    backgroundColor: "#00ff00",
+    backgroundColor: "#ffffff",
     width: "100%",
     paddingTop: "10px",
-    paddingBotom: "10px",
+    paddingBottom: "10px",
     borderWidth: "1px",
     borderRadius: "2px",
     borderStyle: "solid",
@@ -39,14 +28,16 @@ const CountdownTimer = () => {
     borderBottomWidth: "1px",
     borderBottomColor: "#000000",
     borderBottomStyle: "solid",
-    backgroundColor: "#00ff00",
+    backgroundColor: "#ffffff",
     color: "#000000",
     paddingTop: "5px",
     paddingBottom: "5px",
-    paddingRight: "20px",
-    paddingLeft: "20px",
+    paddingRight: "15px",
+    paddingLeft: "15px",
     fontSize: "12px",
     fontWeight: "400",
+    fontStyle: "normal",
+    fontFamily: "sans-serif",
   });
 
   const [dateSubtitleLayout, setDateSubtitleLayout] = useState({
@@ -56,21 +47,70 @@ const CountdownTimer = () => {
     borderBottomWidth: "1px",
     borderBottomColor: "#000000",
     borderBottomStyle: "solid",
-    backgroundColor: "#00ff00",
-    color: "#000000",
+    backgroundColor: "#ffffff",
     paddingTop: "5px",
     paddingBottom: "5px",
-    paddingRight: "20px",
-    paddingLeft: "20px",
-    fontSize: "12px",
-    fontWeight: "400",
+    paddingRight: "15px",
+    paddingLeft: "15px",
+    gap: "5px",
   });
 
   const [globalSettings, setGlobalSettings] = useState({
     title: "Same Day Delivery",
     isTitleActive: true,
     isSubtitleActive: true,
+    isDateSubtitleActive: true,
+    isCurrentDateActive: true,
+    isTimerTitleActive: true,
     subtitle: "For Fast Delivery Today",
+    dateFormat: "DD/MM/YYYY",
+    timerTitle: "Time Left to Order",
+    hoursTitle: "hours",
+    minutesTitle: "mintues",
+    secondsTitle: "seconds",
+  });
+
+  const [dateStyle, setDateSettings] = useState({
+    fontSize: "12px",
+    fontWeight: "400",
+    fontStyle: "normal",
+    fontFamily: "sans-serif",
+    color: "#000000",
+  });
+  const [subtitleStyle, setSubtitleSettings] = useState({
+    color: "#000000",
+    fontSize: "12px",
+    fontWeight: "400",
+    fontStyle: "normal",
+    fontFamily: "sans-serif",
+  });
+
+  const [timerStyle, setTimerStyle] = useState({
+    display: "flex",
+    flexDirection: "column",
+    gap: "5px",
+    paddingRight: "15px",
+    paddingLeft: "15px",
+    alignItems: "center",
+    paddingTop: "5px",
+    paddingBottom: "5px",
+    backgroundColor: "#ffffff",
+  });
+
+  const [timerTextStyle, setTimerTextStyle] = useState({
+    color: "#000000",
+    fontSize: "12px",
+    fontWeight: "400",
+    fontStyle: "normal",
+    fontFamily: "sans-serif",
+  });
+
+  const [timerTitleStyle, setTimerTitleStyle] = useState({
+    color: "#000000",
+    fontSize: "12px",
+    fontWeight: "400",
+    fontStyle: "normal",
+    fontFamily: "sans-serif",
   });
 
   return (
@@ -138,6 +178,20 @@ const CountdownTimer = () => {
                     setlayout={setDateSubtitleLayout}
                     globalSettings={globalSettings}
                     setGlobalSettings={setGlobalSettings}
+                    dateStyle={dateStyle}
+                    setDateSettings={setDateSettings}
+                    subtitleStyle={subtitleStyle}
+                    setSubtitleSettings={setSubtitleSettings}
+                  />
+                  <TimerSetting
+                    layout={timerStyle}
+                    setlayout={setTimerStyle}
+                    globalSettings={globalSettings}
+                    setGlobalSettings={setGlobalSettings}
+                    timerTextStyle={timerTextStyle}
+                    setTimerTextStyle={setTimerTextStyle}
+                    timerTitleStyle={timerTitleStyle}
+                    setTimerTitleStyle={setTimerTitleStyle}
                   />
                 </div>
               </div>
@@ -172,10 +226,15 @@ const CountdownTimer = () => {
                 }}
               >
                 <CountdownTimerComponent
-                  containerStyle={containerLayout}
-                  titleStyle={titleLayout}
+                  containerLayout={containerLayout}
+                  titleLayout={titleLayout}
                   dateSubtitleLayout={dateSubtitleLayout}
                   globalSettings={globalSettings}
+                  subtitleStyle={subtitleStyle}
+                  dateStyle={dateStyle}
+                  timerStyle={timerStyle}
+                  timerTextStyle={timerTextStyle}
+                  timerTitleStyle={timerTitleStyle}
                 />
               </div>
             </div>
